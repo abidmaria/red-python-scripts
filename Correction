@@ -1,0 +1,28 @@
+Small correction on David Bombal's script  ( to return all the adapters  not only wlan0 ) below is the correction :
+
+
+pattern = r'^wlan[0-9]+'
+check_wifi_result = subprocess.run(["iwconfig"], capture_output=True).stdout.decode()
+
+wifi_adapters = re.findall(pattern,check_wifi_result,re.MULTILINE)
+
+print(wifi_adapters)
+
+
+if len(wifi_adapters) == 0:
+    print("Please connect a WiFi adapter and try again.")
+    exit()
+
+# Menu to select WiFi interface from
+print("The following WiFi interfaces are available:")
+for index, item in enumerate(wifi_adapters):
+    print(f"{index} - {item}")
+    
+    
+    
+    Output :
+    
+    The following WiFi interfaces are available:
+0 - wlan0
+1 - wlan1
+2 - wlan2
